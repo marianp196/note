@@ -1,6 +1,7 @@
 import { NoteOverviewComponent } from './note-overview/note-overview.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SynchronizationComponent } from './synchronization/synchronization.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,11 @@ const routes: Routes = [
   {
     path: 'overview',
     component: NoteOverviewComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'sync',
+    component: SynchronizationComponent,
     pathMatch: 'full'
   }
 ];

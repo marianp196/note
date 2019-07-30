@@ -6,9 +6,9 @@
     <ion-title>Notes</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>
 <ion-content>
   <ion-list>
-    <ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>    
     <app-note-list-item [note]="note" *ngFor="let note of notes | search: searchStr"></app-note-list-item>
   </ion-list>
 

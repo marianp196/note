@@ -14,9 +14,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { NoteOverviewComponent } from './note-overview/note-overview.component';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from './note-overview/search.pipe';
+import { SynchronizationComponent } from './synchronization/synchronization.component';
 
 @NgModule({
-  declarations: [AppComponent, NoteOverviewComponent, NoteListItemComponent, NoteEditComponent, SearchPipe],
+  declarations: [AppComponent, NoteOverviewComponent,
+    NoteListItemComponent, NoteEditComponent, SearchPipe, SynchronizationComponent],
   entryComponents: [NoteEditComponent],
   imports: [
     BrowserModule,

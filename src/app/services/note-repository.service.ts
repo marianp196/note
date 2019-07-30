@@ -57,6 +57,11 @@ export class NoteRepositoryService {
     return resultList;
   }
 
+  public async GetAllMarkedForUpload(): Promise<Domain<NoteData>[]> {
+    const notes = await this.GetAll();
+    return notes.filter(note => note.state !== EClientState.ServerEqual);
+  }
+
 
   public async exists(id: string): Promise<boolean> {
     const keys = await this.storage.keys();

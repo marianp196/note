@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Synchronization</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-progress-bar [value]="progress | async"></ion-progress-bar>
+  <ion-item>
+    <ion-input placeholder="URI"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="Profile"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="upload()">
+        <ion-icon name="cloud-download" size="large" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="upload()" color="primary">
+        <ion-icon name="cloud-upload" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-item>
+</ion-content>
