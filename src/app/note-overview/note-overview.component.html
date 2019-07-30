@@ -8,8 +8,8 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-searchbar></ion-searchbar>    
-    <app-note-list-item [note]="note" *ngFor="let note of notes | async"></app-note-list-item>
+    <ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>    
+    <app-note-list-item [note]="note" *ngFor="let note of notes | search: searchStr"></app-note-list-item>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="create()">

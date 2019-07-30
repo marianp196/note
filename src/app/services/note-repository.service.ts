@@ -67,8 +67,7 @@ export class NoteRepositoryService {
     const domain = new Domain<NoteData>();
     domain.id = Guid.create().toString();
     domain.data = new NoteData();
-    domain.data.title = "NewTitle";
-    domain.data.freeTags = "#";
+    domain.data.timestamp = new Date(Date.now());
     return domain;
   }
 }

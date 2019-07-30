@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Note
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-item>
+    <ion-input placeholder="Title" [(ngModel)]="note.data.title" autofocus=true></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input placeholder="Tags" [(ngModel)]="note.data.freeTags"></ion-input>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-textarea rows="10" placeholder="Text" [(ngModel)]="note.data.text"></ion-textarea>
+  </ion-item>
+
+  <ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="save()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

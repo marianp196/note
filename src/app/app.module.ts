@@ -1,3 +1,4 @@
+import { NoteEditComponent } from './note-edit/note-edit.component';
 import { NoteListItemComponent } from './note-list-item/note-list-item.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,15 +12,18 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { NoteOverviewComponent } from './note-overview/note-overview.component';
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from './note-overview/search.pipe';
 
 @NgModule({
-  declarations: [AppComponent, NoteOverviewComponent, NoteListItemComponent],
-  entryComponents: [],
+  declarations: [AppComponent, NoteOverviewComponent, NoteListItemComponent, NoteEditComponent, SearchPipe],
+  entryComponents: [NoteEditComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    FormsModule
   ],
   providers: [
     StatusBar,
