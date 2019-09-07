@@ -6,15 +6,15 @@
     <ion-title>Notes</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>
 <ion-content>
+  <ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>
   <ion-list>
     <app-note-list-item [note]="note" *ngFor="let note of notes | search: searchStr"></app-note-list-item>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="create()">
     <ion-fab-button>
-        <ion-icon name="add"></ion-icon>
+      <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

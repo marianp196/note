@@ -9,10 +9,12 @@
 <ion-content>
   <ion-progress-bar [value]="progress | async"></ion-progress-bar>
   <ion-item>
-    <ion-input placeholder="URI"></ion-input>
+    <ion-label color="primary">URI:</ion-label>
+    <ion-input placeholder="URI" [(ngModel)]="uri"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input placeholder="Profile"></ion-input>
+    <ion-label color="primary">Profile:</ion-label>
+    <ion-input placeholder="Profile" [(ngModel)]="profile"></ion-input>
   </ion-item>
 
   <ion-item>

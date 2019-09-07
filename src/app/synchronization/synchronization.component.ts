@@ -12,6 +12,8 @@ export class SynchronizationComponent implements OnInit {
   constructor(private syncService: SynchronizationService) { }
 
   public progress: ReplaySubject<number>;
+  public uri = 'http://localhost:8080';
+  public profile = 'origin';
   ngOnInit() {}
 
   public async upload() {

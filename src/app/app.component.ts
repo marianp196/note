@@ -14,7 +14,7 @@ export class AppComponent {
     {
       title: 'Notes',
       url: '/overview',
-      icon: 'home'
+      icon: 'folder'
     },
     {
       title: 'Synchronization',
