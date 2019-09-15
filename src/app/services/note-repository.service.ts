@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EClientState } from './domain/client-state';
 import { Guid } from "guid-typescript";
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,7 @@ export class NoteRepositoryService {
     const domain = new Domain<NoteData>();
     domain.id = Guid.create().toString();
     domain.data = new NoteData();
-    domain.data.timestamp = new Date(Date.now());
+    domain.data.timestamp = moment();
     return domain;
   }
 }

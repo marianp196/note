@@ -20,6 +20,9 @@ export class NoteOverviewComponent implements OnInit {
 
   async ngOnInit() {
     this.notes = await this.getAll();
+    const test = new Domain<NoteData>();
+    test.data = new NoteData();
+    test.getMemento();
   }
 
   public async update(note: Domain<NoteData>) {

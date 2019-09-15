@@ -1,7 +1,7 @@
 <ion-card *ngIf="note">
   <ion-card-header (click)="update(note)">
     <ion-card-title>{{note.data.title}}</ion-card-title>
-    <ion-card-subtitle>{{note.data.timestamp.toLocaleDateString()}} 
+    <ion-card-subtitle>{{note.data.timestamp}} 
         <br>
        <ion-text color="secondary">{{note.data.freeTags}}</ion-text>
     </ion-card-subtitle>
