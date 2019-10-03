@@ -15,7 +15,7 @@ import { NoteOverviewComponent } from './note-overview/note-overview.component';
 import { FormsModule } from '@angular/forms';
 import { SearchPipe } from './note-overview/search.pipe';
 import { SynchronizationComponent } from './synchronization/synchronization.component';
-import { DatabaseService } from './services/storage/database.service';
+import { DatabaseService } from './services/core/storage/database.service';
 
 export function initStorage(db: DatabaseService) {
   return (): Promise<any> => { 

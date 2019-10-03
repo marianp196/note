@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { Domain } from '../domain';
+import { Domain } from '../core/domain/domain';
 
 export class NoteData implements Domain {
     public id: string;

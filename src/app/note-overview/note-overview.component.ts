@@ -35,6 +35,7 @@ export class NoteOverviewComponent implements OnInit {
     const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
     await modal.present();
     const result = await modal.onDidDismiss();
+    
     if (result.role === 'save') {
       await this.noteRepo.create(note);
       this.notes.push(note);

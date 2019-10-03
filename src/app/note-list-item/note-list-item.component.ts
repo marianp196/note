@@ -18,12 +18,6 @@ export class NoteListItemComponent implements OnInit {
   @Input()
   public note: NoteData;
 
-  public opened: boolean = false;
-  
-  public open() {
-    this.opened = !this.opened;
-  }
-
   public async update(note: NoteData) {
     const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
     await modal.present();
