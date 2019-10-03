@@ -13,15 +13,15 @@
 <ion-content>
 
   <ion-item>
-    <ion-input placeholder="Title" [(ngModel)]="note.data.title" autofocus=true></ion-input>
+    <ion-input placeholder="Title" [(ngModel)]="note.title" autofocus=true></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-input placeholder="Tags" [(ngModel)]="note.data.freeTags" color="secondary"></ion-input>
+    <ion-input placeholder="Tags" [(ngModel)]="note.freeTags" color="secondary"></ion-input>
   </ion-item>
   <br>
   <ion-item>
-    <ion-textarea rows="20" placeholder="Text" [(ngModel)]="note.data.text"></ion-textarea>
+    <ion-textarea rows="20" placeholder="Text" [(ngModel)]="note.text"></ion-textarea>
   </ion-item>
 
   <ion-fab vertical="bottom" horizontal="end">

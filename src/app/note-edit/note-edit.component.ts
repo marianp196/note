@@ -1,6 +1,5 @@
 import { ModalController } from '@ionic/angular';
-import { NoteData } from './../services/domain/note-data';
-import { Domain } from './../services/domain/domain';
+import { NoteData } from '../services/note/note-data';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -12,7 +11,7 @@ export class NoteEditComponent implements OnInit {
 
   constructor(private modal: ModalController) { }
 
-  @Input() note: Domain<NoteData>;
+  @Input() note: NoteData
 
   public close() {
     this.modal.dismiss();

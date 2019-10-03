@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SynchronizationService } from '../services/synchronization.service';
 import { ReplaySubject } from 'rxjs';
 
 @Component({
@@ -9,7 +8,7 @@ import { ReplaySubject } from 'rxjs';
 })
 export class SynchronizationComponent implements OnInit {
 
-  constructor(private syncService: SynchronizationService) { }
+  constructor() { }
 
   public progress: ReplaySubject<number>;
   public uri = 'http://localhost:8080';
@@ -18,6 +17,6 @@ export class SynchronizationComponent implements OnInit {
 
   public async upload() {
     this.progress = new ReplaySubject<number>();
-    await this.syncService.uploadData(this.progress);
+    //await this.syncService.uploadData(this.progress);
   }
 }

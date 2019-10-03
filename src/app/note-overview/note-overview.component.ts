@@ -1,10 +1,9 @@
-import { NoteData } from './../services/domain/note-data';
-import { Domain } from './../services/domain/domain';
-import { NoteRepositoryService } from './../services/note-repository.service';
+import { NoteData } from '../services/note/note-data';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NoteEditComponent } from '../note-edit/note-edit.component';
 import * as _ from 'lodash';
+import { NoteService } from '../services/note/note.service';
 
 @Component({
   selector: 'app-note-overview',
@@ -13,19 +12,16 @@ import * as _ from 'lodash';
 })
 export class NoteOverviewComponent implements OnInit {
 
-  constructor(private noteRepo: NoteRepositoryService, private modal: ModalController) { }
+  constructor(private noteRepo: NoteService, private modal: ModalController) { }
 
-  public notes: Domain<NoteData>[];
+  public notes: NoteData[];
   public searchStr: string;
 
   async ngOnInit() {
     this.notes = await this.getAll();
-    const test = new Domain<NoteData>();
-    test.data = new NoteData();
-    test.getMemento();
   }
 
-  public async update(note: Domain<NoteData>) {
+  public async update(note: NoteData) {
     const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
     await modal.present();
     const result = await modal.onDidDismiss();
@@ -35,7 +31,7 @@ export class NoteOverviewComponent implements OnInit {
   }
 
   public async create() {
-    const note = this.noteRepo.createNew();
+    const note = this.noteRepo.createObj();
     const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
     await modal.present();
     const result = await modal.onDidDismiss();
@@ -45,8 +41,9 @@ export class NoteOverviewComponent implements OnInit {
     }
   }
 
-  private async getAll(): Promise<Domain<NoteData>[]> {
-    const notes = await this.noteRepo.GetAll();
-    return _.orderBy(notes, [note => note.timestamp]);
+  private async getAll(): Promise<NoteData[]> {
+    const notes = await this.noteRepo.getAll();
+    console.log(notes.map(x => x.timestamp));
+    return _.orderBy(notes, [note => note.timestamp.unix()]);
   }
 }

@@ -1,5 +1,4 @@
-import { NoteData } from './../services/domain/note-data';
-import { Domain } from './../services/domain/domain';
+import { NoteData } from '../services/note/note-data';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -13,17 +12,17 @@ export class SearchPipe implements PipeTransform {
     }
 
     const search = args[0];
-    const list = value as Domain<NoteData>[];
+    const list = value as NoteData[];
 
     if (!search || search === '') {
       return value;
     }
 
     return list.filter(note => {
-      return note.data.freeTags
+      return note.freeTags
       .toLocaleLowerCase()
       .includes(search.toLocaleLowerCase())
-      || note.data.title
+      || note.title
       .toLocaleLowerCase()
       .includes(search.toLocaleLowerCase());
     });

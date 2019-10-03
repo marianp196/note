@@ -1,9 +1,9 @@
 <ion-card *ngIf="note">
   <ion-card-header (click)="update(note)">
-    <ion-card-title>{{note.data.title}}</ion-card-title>
-    <ion-card-subtitle>{{note.data.timestamp}} 
+    <ion-card-title>{{note.title}}</ion-card-title>
+    <ion-card-subtitle>{{note.timestamp}} 
         <br>
-       <ion-text color="secondary">{{note.data.freeTags}}</ion-text>
+       <ion-text color="secondary">{{note.freeTags}}</ion-text>
     </ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
@@ -11,7 +11,7 @@
       <ion-button (click)="open()" fill="clear" size="small" slot="end">Show more</ion-button>
     </ion-item>
     <ion-text *ngIf="opened" (click)="open()">
-      {{note.data.text ? note.data.text : "noText"}}
+      {{note.text ? note.text : "noText"}}
     </ion-text>
   </ion-card-content>
 </ion-card>
