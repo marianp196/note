@@ -18,15 +18,23 @@ import { SynchronizationComponent } from './synchronization/synchronization.comp
 import { DatabaseService } from './services/core/storage/database.service';
 
 export function initStorage(db: DatabaseService) {
-  return (): Promise<any> => { 
+  return async (): Promise<any> => { 
     db.schema = {
       dbName: 'notes',
-      currentVersion: 2,
+      currentVersion: 3,
       tables: [
-        {name: 'note'}
+        {name: 'note'},
+        {name: 'space'}
       ]
     }
-    return db.openDatabaseAndUpdate();
+    await db.openDatabaseAndUpdate();
+
+    const repository = db.getStore('space');
+    if((await repository.getAll()).length === 0) {
+      await repository.create('ToDo', {id: 'ToDo', header: 'ToDos', iconKey: 'list', safe: false});
+      await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'list', safe: false});
+      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'list', safe: false});
+    }
   }
 }
 

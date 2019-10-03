@@ -8,6 +8,7 @@ export class NoteData implements Domain {
     public text: string;
     public timestamp: moment.Moment;
 
+    public spaceId: string;
     public categories: string[];
     public freeTags: string;
     public attechments: string[];
@@ -20,7 +21,8 @@ export class NoteData implements Domain {
             timestamp: this.timestamp ? this.timestamp.format() : null,
             categories: this.categories,
             freeTags: this.freeTags,
-            attechments: this.attechments
+            attechments: this.attechments,
+            spaceId: this.spaceId
         }
     }
 
@@ -34,5 +36,6 @@ export class NoteData implements Domain {
         if (memento.timestamp) {
             this.timestamp = moment(memento.timestamp);
         }
+        this.spaceId = memento.spaceId;
     }
 }

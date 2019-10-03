@@ -6,11 +6,11 @@ import { SynchronizationComponent } from './synchronization/synchronization.comp
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/overview',
+    redirectTo: '/overview/ToDos',
     pathMatch: 'full'
   },
   {
-    path: 'overview',
+    path: 'overview/:space',
     component: NoteOverviewComponent,
     pathMatch: 'full'
   },

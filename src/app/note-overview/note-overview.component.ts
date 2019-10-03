@@ -4,6 +4,9 @@ import { ModalController } from '@ionic/angular';
 import { NoteEditComponent } from '../note-edit/note-edit.component';
 import * as _ from 'lodash';
 import { NoteService } from '../services/note/note.service';
+import { ActivatedRoute } from '@angular/router';
+import { SpaceService } from '../services/space/space.service';
+import { Space } from '../services/space/space';
 
 @Component({
   selector: 'app-note-overview',
@@ -12,13 +15,21 @@ import { NoteService } from '../services/note/note.service';
 })
 export class NoteOverviewComponent implements OnInit {
 
-  constructor(private noteRepo: NoteService, private modal: ModalController) { }
+  constructor(private noteRepo: NoteService, private spaceService: SpaceService,
+    private modal: ModalController, private activatedRoute: ActivatedRoute) { 
+  }
+
+  private space: Promise<Space>;
 
   public notes: NoteData[];
   public searchStr: string;
 
   async ngOnInit() {
-    this.notes = await this.getAll();
+    const spaceId = this.activatedRoute.snapshot.params.space;
+    this.space = this.spaceService.get(spaceId);
+
+    const allNotes = await this.getAll();
+    this.notes = allNotes.filter(n => n.spaceId === spaceId);
   }
 
   public async update(note: NoteData) {
@@ -32,6 +43,8 @@ export class NoteOverviewComponent implements OnInit {
 
   public async create() {
     const note = this.noteRepo.createObj();
+    note.spaceId = (await this.space).id;
+
     const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
     await modal.present();
     const result = await modal.onDidDismiss();
