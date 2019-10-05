@@ -14,6 +14,11 @@ export class NoteService extends DomainService<NoteData> {
     super(() => new NoteData(), store);
   }
 
+  public async getAllBySpaceId(spaceId: string): Promise<NoteData[]> {
+    const all = await this.getAll();
+    return all.filter(note => note.spaceId === spaceId);
+  }
+
   public createObj(): NoteData {
     const note = new NoteData();
     note.id = Guid.create().toString();

@@ -21,15 +21,14 @@ export class NoteOverviewComponent implements OnInit {
 
   private space: Promise<Space>;
 
-  public notes: NoteData[];
+  public notes: Promise<NoteData[]>;
   public searchStr: string;
 
-  async ngOnInit() {
+  ngOnInit() {
     const spaceId = this.activatedRoute.snapshot.params.space;
     this.space = this.spaceService.get(spaceId);
 
-    const allNotes = await this.getAll();
-    this.notes = allNotes.filter(n => n.spaceId === spaceId);
+    this.notes = this.getAll(spaceId);
   }
 
   public async update(note: NoteData) {
@@ -42,21 +41,23 @@ export class NoteOverviewComponent implements OnInit {
   }
 
   public async create() {
-    const note = this.noteRepo.createObj();
-    note.spaceId = (await this.space).id;
+    const newNote = this.noteRepo.createObj();
+    newNote.spaceId = (await this.space).id;
 
-    const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
+    const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note: newNote}});
     await modal.present();
     const result = await modal.onDidDismiss();
+
+    const notes = await this.notes;
     
     if (result.role === 'save') {
-      await this.noteRepo.create(note);
-      this.notes.push(note);
+      await this.noteRepo.create(newNote);
+      notes.push(newNote);
     }
   }
 
-  private async getAll(): Promise<NoteData[]> {
-    const notes = await this.noteRepo.getAll();
+  private async getAll(spaceID: string): Promise<NoteData[]> {
+    const notes = await this.noteRepo.getAllBySpaceId(spaceID)
     console.log(notes.map(x => x.timestamp));
     return _.orderBy(notes, [note => note.timestamp.unix()]);
   }
