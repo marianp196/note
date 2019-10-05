@@ -16,16 +16,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <form [formGroup]="noteGroup">
+    <ion-item>
+      <ion-input placeholder="Title" formControlName="title" autofocus=true></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-input placeholder="Title" [(ngModel)]="note.title" autofocus=true></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-input placeholder="Tags" [(ngModel)]="note.freeTags" color="secondary"></ion-input>
-  </ion-item>
-  <br>
-  <ion-item>
-    <ion-textarea rows="20" placeholder="Text" [(ngModel)]="note.text"></ion-textarea>
-  </ion-item>
+    <ion-item>
+      <ion-input placeholder="Tags" formControlName="freeTags" color="secondary"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-textarea rows="20" placeholder="Text" formControlName="text"></ion-textarea>
+    </ion-item>
+  </form>
 </ion-content>

@@ -32,7 +32,10 @@ export class NoteOverviewComponent implements OnInit {
   }
 
   public async update(note: NoteData) {
-    const modal = await this.modal.create({component: NoteEditComponent, componentProps: {note}});
+    const modal = await this.modal.create({component: NoteEditComponent, 
+      componentProps: {note}
+    });
+
     await modal.present();
     const result = await modal.onDidDismiss();
     if (result.role === 'save') {
@@ -57,8 +60,7 @@ export class NoteOverviewComponent implements OnInit {
   }
 
   private async getAll(spaceID: string): Promise<NoteData[]> {
-    const notes = await this.noteRepo.getAllBySpaceId(spaceID)
-    console.log(notes.map(x => x.timestamp));
+    const notes = await this.noteRepo.getAllBySpaceId(spaceID);
     return _.orderBy(notes, [note => note.timestamp.unix()]);
   }
 }

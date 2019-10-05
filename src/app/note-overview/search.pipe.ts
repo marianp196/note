@@ -22,7 +22,9 @@ export class SearchPipe implements PipeTransform {
       return note.freeTags
       .toLocaleLowerCase()
       .includes(search.toLocaleLowerCase())
+
       || note.title
+      
       .toLocaleLowerCase()
       .includes(search.toLocaleLowerCase());
     });

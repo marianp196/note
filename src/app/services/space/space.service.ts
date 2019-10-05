@@ -14,9 +14,9 @@ export class SpaceService extends DomainService<Space> {
 
   public async createSet() {
     const data = [
-      {id: 'ToDo', header: 'ToDos', iconKey: 'list', safe: false},
+      {id: 'ToDo', header: 'ToDos', iconKey: 'checkbox-outline', safe: false},
       {id: 'Gedanken', header: 'Gedanken', iconKey: 'list', safe: false},
-      {id: 'Serien', header: 'Serien', iconKey: 'list', safe: false}
+      {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: false}
     ]
     if((await this.getAll()).length === 0) {
       for (const mem of data) {

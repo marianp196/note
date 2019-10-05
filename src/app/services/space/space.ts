@@ -14,6 +14,4 @@ export class Space implements Domain {
     setMemento(memento: any) {
         _.assign(this, memento);
     }
-
-
 }

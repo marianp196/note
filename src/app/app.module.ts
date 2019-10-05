@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { NoteOverviewComponent } from './note-overview/note-overview.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './note-overview/search.pipe';
 import { SynchronizationComponent } from './synchronization/synchronization.component';
 import { DatabaseService } from './services/core/storage/database.service';
@@ -31,9 +31,9 @@ export function initStorage(db: DatabaseService) {
 
     const repository = db.getStore('space');
     if((await repository.getAll()).length === 0) {
-      await repository.create('ToDo', {id: 'ToDo', header: 'ToDos', iconKey: 'list', safe: false});
-      await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'list', safe: false});
-      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'list', safe: false});
+      await repository.create('ToDo', {id: 'ToDo', header: 'ToDos', iconKey: 'checkbox-outline', safe: false});
+      await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'planet', safe: false});
+      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: false});
     }
   }
 }
@@ -47,7 +47,8 @@ export function initStorage(db: DatabaseService) {
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,

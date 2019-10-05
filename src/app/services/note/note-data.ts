@@ -38,4 +38,10 @@ export class NoteData implements Domain {
         }
         this.spaceId = memento.spaceId;
     }
+
+    copy(): NoteData {
+        const newSpace = new NoteData();
+        newSpace.setMemento(this.getMemento());
+        return newSpace; 
+    }
 }
