@@ -6,7 +6,8 @@
       <ion-text color="primary">
         {{note.freeTags}}
       </ion-text>
-       - {{note.text}}
+       {{note.freeTags && note.text ? '-' : ''}} 
+       {{note.text}}
     </ion-note>
   </ion-label>
   <ion-text slot="end" class="date" color="medium">{{note.timestamp.format('dd DD.MM.YY')}}</ion-text>

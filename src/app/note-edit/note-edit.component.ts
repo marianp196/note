@@ -23,9 +23,7 @@ export class NoteEditComponent implements OnInit {
 
   public save() {
     const data = this.noteGroup.getRawValue();
-
     _.assign(this.note, data);
-
     this.modal.dismiss(this.note, 'save');
   }
 

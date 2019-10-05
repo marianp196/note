@@ -2,6 +2,8 @@ import { NoteOverviewComponent } from './note-overview/note-overview.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SynchronizationComponent } from './synchronization/synchronization.component';
+import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './login/login.guard';
 
 const routes: Routes = [
   {
@@ -12,11 +14,17 @@ const routes: Routes = [
   {
     path: 'overview/:space',
     component: NoteOverviewComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [LoginGuard]
   },
   {
     path: 'sync',
     component: SynchronizationComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
     pathMatch: 'full'
   }
 ];

@@ -19,14 +19,14 @@ export class SearchPipe implements PipeTransform {
     }
 
     return list.filter(note => {
-      return note.freeTags
+      return (note.freeTags &&note.freeTags
       .toLocaleLowerCase()
-      .includes(search.toLocaleLowerCase())
+      .includes(search.toLocaleLowerCase()))
 
-      || note.title
+      || (note.title && note.title
       
       .toLocaleLowerCase()
-      .includes(search.toLocaleLowerCase());
+      .includes(search.toLocaleLowerCase()));
     });
   }
 

@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './note-overview/search.pipe';
 import { SynchronizationComponent } from './synchronization/synchronization.component';
 import { DatabaseService } from './services/core/storage/database.service';
+import { LoginComponent } from './login/login.component';
 
 export function initStorage(db: DatabaseService) {
   return async (): Promise<any> => { 
@@ -32,15 +33,16 @@ export function initStorage(db: DatabaseService) {
     const repository = db.getStore('space');
     if((await repository.getAll()).length === 0) {
       await repository.create('ToDo', {id: 'ToDo', header: 'ToDos', iconKey: 'checkbox-outline', safe: false});
-      await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'planet', safe: false});
-      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: false});
+      await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'planet', safe: true});
+      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: true});
     }
   }
 }
 
 @NgModule({
   declarations: [AppComponent, NoteOverviewComponent,
-    NoteListItemComponent, NoteEditComponent, SearchPipe, SynchronizationComponent],
+    NoteListItemComponent, NoteEditComponent,
+    SearchPipe, SynchronizationComponent, LoginComponent],
   entryComponents: [NoteEditComponent],
   imports: [
     BrowserModule,
