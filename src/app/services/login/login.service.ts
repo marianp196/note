@@ -8,7 +8,7 @@ export class LoginService {
   constructor() { }
 
   public getNewLoginToken(password: string): string {
-    if (password === '1968') {
+    if (password === '0000') {
       this.token = Guid.create().toString();
       return this.token;
     } else {

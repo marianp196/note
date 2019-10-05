@@ -22,13 +22,12 @@ export class LoginGuard implements CanActivate {
     }
 
     const token = route.queryParams.token;
-    console.log('guard', token);
     if (token && this.loginService.isValidLoginToken(token)) {
       return true;
     } else {
       return this.router.createUrlTree(['login'], {
         queryParams: {
-          redirect: route.url.join('/')
+          redirect: route.url
         }
       });
     }

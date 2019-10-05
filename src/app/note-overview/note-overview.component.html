@@ -8,6 +8,7 @@
 </ion-header>
 <ion-content>
   <ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>
+  
   <ion-list *ngIf="notes | async as resNotes">
     <app-note-list-item [note]="note" *ngFor="let note of resNotes | search: searchStr"></app-note-list-item>
   </ion-list>

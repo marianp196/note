@@ -5,8 +5,10 @@
     </ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-input [(ngModel)]="inputStr" type="password" placeholder="Passwort" autofocus="true"></ion-input>
-    <br>
-    <ion-button (click)="login()">Ok</ion-button>
+    <form>
+      <ion-input [formControl]="password" type="password" placeholder="Passwort" autofocus="true"></ion-input>
+      <br>
+      <ion-button (click)="login()">Ok</ion-button>
+    </form>
   </ion-card-content>
 </ion-card>

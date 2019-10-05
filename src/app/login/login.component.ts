@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login/login.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,20 +10,30 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, 
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.password = new FormControl();
+  }
 
-  public inputStr: string;
+  public password: FormControl;
 
   login() {
-    const token = this.loginService.getNewLoginToken(this.inputStr);
+    const token = this.loginService.getNewLoginToken(this.password.value);
     if (token) {
-      this.router.navigate(['overview','Gedanken'], {
+      const route = this.getRoute();
+      this.router.navigate(route , {
         queryParams: {
           token
         }
       })
     }
+    this.password.setValue('');
+  }
+
+  private getRoute(): string[] {
+    return this.activatedRoute.snapshot.queryParams.redirect || ['overview','ToDo'];
   }
 }
