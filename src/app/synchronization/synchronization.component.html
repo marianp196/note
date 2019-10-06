@@ -7,25 +7,48 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-progress-bar [value]="progress | async"></ion-progress-bar>
-  <ion-item>
-    <ion-label color="primary">URI:</ion-label>
-    <ion-input placeholder="URI" [(ngModel)]="uri"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label color="primary">Profile:</ion-label>
-    <ion-input placeholder="Profile" [(ngModel)]="profile"></ion-input>
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Synchronization</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-progress-bar [value]="progress | async"></ion-progress-bar>
 
-  <ion-item>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="upload()">
-        <ion-icon name="cloud-download" size="large" color="primary"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear" (click)="upload()" color="primary">
-        <ion-icon name="cloud-upload" size="large"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+      <ion-item lines="none">
+        <ion-label color="primary">URI:</ion-label>
+        <ion-input placeholder="URI" [(ngModel)]="uri"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="primary">Profile:</ion-label>
+        <ion-input placeholder="Profile" [(ngModel)]="profile"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-buttons slot="end">
+          <ion-button fill="clear" (click)="upload()">
+            <ion-icon name="cloud-download" size="large" color="primary"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="upload()" color="primary">
+            <ion-icon name="cloud-upload" size="large"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-  </ion-item>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Export</ion-card-title>
+    </ion-card-header>
+    <ion-card-title>
+      <ion-item lines="none">
+        <ion-label color="primary">Password:</ion-label>
+        <ion-input placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
+        <ion-button (click)="exportAsJson()" class="export-btn" fill="clear" slot="end">
+          <ion-icon name="download"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <br>
+      <ion-textarea [(ngModel)]="exportArea" rows="10" disabled="true"></ion-textarea>
+    </ion-card-title>
+  </ion-card>
 </ion-content>

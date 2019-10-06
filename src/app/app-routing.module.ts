@@ -18,11 +18,6 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
-    path: 'sync',
-    component: SynchronizationComponent,
-    pathMatch: 'full'
-  },
-  {
     path: 'login',
     component: LoginComponent,
     pathMatch: 'full'
