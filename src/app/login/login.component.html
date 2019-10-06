@@ -6,7 +6,10 @@
   </ion-card-header>
   <ion-card-content>
     <form>
-      <ion-input [formControl]="password" type="password" placeholder="Passwort" autofocus="true"></ion-input>
+      <br>
+      <ion-item>
+          <ion-input [formControl]="password" type="password" placeholder="Passwort" autofocus="true"></ion-input>
+      </ion-item>
       <br>
       <ion-button (click)="login()">Ok</ion-button>
     </form>

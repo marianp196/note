@@ -55,12 +55,19 @@ export class NoteOverviewComponent implements OnInit {
     
     if (result.role === 'save') {
       await this.noteRepo.create(newNote);
-      notes.push(newNote);
+      notes.splice(0, 0, newNote);
     }
+  }
+
+  public async delete(note: NoteData) {
+    await this.noteRepo.delete(note);
+    const notes = await this.notes;
+    const index = notes.indexOf(note);
+    notes.splice(index, 1);
   }
 
   private async getAll(spaceID: string): Promise<NoteData[]> {
     const notes = await this.noteRepo.getAllBySpaceId(spaceID);
-    return _.orderBy(notes, [note => note.timestamp.unix()]);
+    return _.orderBy(notes, [note => note.timestamp.unix()]).reverse();
   }
 }

@@ -6,11 +6,18 @@
     <ion-title *ngIf="space | async as resSpace">{{resSpace.header}}</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-searchbar [(ngModel)]="searchStr"></ion-searchbar>
-  
+
   <ion-list *ngIf="notes | async as resNotes">
-    <app-note-list-item [note]="note" *ngFor="let note of resNotes | search: searchStr"></app-note-list-item>
+    <ion-item-sliding *ngFor="let note of resNotes | search: searchStr">
+      <app-note-list-item [note]="note"></app-note-list-item>
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="delete(note)">LÖSCHEN</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="create()">

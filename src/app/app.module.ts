@@ -34,7 +34,9 @@ export function initStorage(db: DatabaseService) {
     if((await repository.getAll()).length === 0) {
       await repository.create('ToDo', {id: 'ToDo', header: 'ToDos', iconKey: 'checkbox-outline', safe: false});
       await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'planet', safe: true});
-      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: true});
+      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: false});
+      await repository.create('Tagebuch', {id: 'Tagebuch', header: 'Tagebuch', iconKey: 'analytics', safe: true});
+    
     }
   }
 }

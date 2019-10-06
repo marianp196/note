@@ -39,7 +39,8 @@ export class AppComponent implements OnInit {
       return {
         title: s.header,
         url: '/overview/' + s.id,
-        icon: s.iconKey
+        icon: s.iconKey,
+        safe: s.safe
       };
     });
   }

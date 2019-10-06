@@ -17,7 +17,9 @@ export class LoginService {
   }
 
   public isValidLoginToken(token: string): boolean {
-    return token && this.token && token === this.token;
+    const valid = token && this.token && token === this.token;
+    this.token = null;
+    return valid;
   }
 
   private token: string;
