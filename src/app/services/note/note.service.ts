@@ -10,7 +10,7 @@ import { ChangeTrigger } from '../core/domain/changeTrigger';
   providedIn: 'root'
 })
 export class NoteService extends DomainService<NoteData> {
-  constructor(database: DatabaseService, @Inject(CHANGE_TRIGGER) trigger: ChangeTrigger) { 
+  constructor(database: DatabaseService, @Inject(CHANGE_TRIGGER) trigger: ChangeTrigger[]) { 
     super(() => new NoteData(), database.getStore('note'), 'NoteData', trigger);
   }
 

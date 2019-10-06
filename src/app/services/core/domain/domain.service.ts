@@ -53,7 +53,7 @@ export class DomainService<T extends Domain> implements Service<T>{
     try {
       if (this.changeTrigger) {
         for (const trigger of this.changeTrigger) {
-          await trigger.trackId(changeType, this.domainName, id);
+          await trigger.trackId(changeType, this.domainName, id); // ToDo vielleicht sollte ein Fehler jier nicht verschluckt werden
         }
       }
     } catch (error) {

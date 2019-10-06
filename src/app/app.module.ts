@@ -1,6 +1,6 @@
 import { NoteEditComponent } from './note-edit/note-edit.component';
 import { NoteListItemComponent } from './note-list-item/note-list-item.component';
-import { NgModule, APP_INITIALIZER, InjectionToken } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -24,10 +24,11 @@ export function initStorage(db: DatabaseService) {
   return async (): Promise<any> => {
     db.schema = {
       dbName: 'notes',
-      currentVersion: 3,
+      currentVersion: 4,
       tables: [
         { name: 'note' },
-        { name: 'space' }
+        { name: 'space' },
+        { name: 'synchro'}
       ]
     }
     await db.openDatabaseAndUpdate();
@@ -67,7 +68,7 @@ export function initStorage(db: DatabaseService) {
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: APP_INITIALIZER, useFactory: initStorage, deps: [DatabaseService], multi: true },
-    { provide: CHANGE_TRIGGER, useValue: new ChangeRecorderService(), deps: [], multi: true }
+    { provide: CHANGE_TRIGGER, useClass: ChangeRecorderService, deps: [DatabaseService], multi: true }
   ],
   bootstrap: [AppComponent]
 })
