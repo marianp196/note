@@ -9,7 +9,7 @@ import { DatabaseService } from '../core/storage/database.service';
 export class SpaceService extends DomainService<Space> {
 
   constructor(database: DatabaseService) { 
-    super(() => new Space(), database.getStore('space'))
+    super(() => new Space(), database.getStore('space'), 'Space')
   }
 
   public async createSet() {

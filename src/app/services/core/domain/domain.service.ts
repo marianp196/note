@@ -1,9 +1,17 @@
 import { Service } from './service';
 import { Domain } from './domain';
 import { DataStoreService } from '../storage/data-store.service';
+import { Inject, InjectionToken } from '@angular/core';
+import { ChangeTrigger, ChangeType } from './changeTrigger';
+
+export const CHANGE_TRIGGER = new InjectionToken<ChangeTrigger>('CHANGE_TRIGGER');
+
 
 export class DomainService<T extends Domain> implements Service<T>{
-  constructor(private domFactory: () => T, private repository: DataStoreService) { }
+  constructor(private domFactory: () => T, 
+              private repository: DataStoreService,
+              private domainName: string,
+              @Inject('CHANGE_TRIGGER') private changeTrigger?: ChangeTrigger[]) { }
 
   createObj(): T {
     return this.domFactory();
@@ -11,14 +19,17 @@ export class DomainService<T extends Domain> implements Service<T>{
 
   public async create(domain: T): Promise<any> {
     await this.repository.create(domain.id, domain.getMemento());
+    await this.triggerChange(ChangeType.Add, domain.id);
   }
 
   public async update(domain: T): Promise<any> {
     await this.repository.update(domain.id, domain.getMemento());
+    await this.triggerChange(ChangeType.Update, domain.id);
   }
 
   public async delete(domain: T): Promise<boolean> {
     await this.repository.remove(domain.id);
+    await this.triggerChange(ChangeType.Delete, domain.id);
     return true;
   }
   
@@ -36,5 +47,17 @@ export class DomainService<T extends Domain> implements Service<T>{
     const domain = this.domFactory();
     domain.setMemento(memento);
     return domain;
+  }
+
+  private async triggerChange(changeType: ChangeType, id: string) {
+    try {
+      if (this.changeTrigger) {
+        for (const trigger of this.changeTrigger) {
+          await trigger.trackId(changeType, this.domainName, id);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { NoteEditComponent } from './note-edit/note-edit.component';
 import { NoteListItemComponent } from './note-list-item/note-list-item.component';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -17,34 +17,42 @@ import { SearchPipe } from './note-overview/search.pipe';
 import { SynchronizationComponent } from './synchronization/synchronization.component';
 import { DatabaseService } from './services/core/storage/database.service';
 import { LoginComponent } from './login/login.component';
+import { ChangeRecorderService } from './services/synchronization/change-recorder.service';
+import { CHANGE_TRIGGER } from './services/core/domain/domain.service';
 
 export function initStorage(db: DatabaseService) {
-  return async (): Promise<any> => { 
+  return async (): Promise<any> => {
     db.schema = {
       dbName: 'notes',
       currentVersion: 3,
       tables: [
-        {name: 'note'},
-        {name: 'space'}
+        { name: 'note' },
+        { name: 'space' }
       ]
     }
     await db.openDatabaseAndUpdate();
 
     const repository = db.getStore('space');
-    if((await repository.getAll()).length === 0) {
-      await repository.create('ToDo', {id: 'ToDo', header: 'ToDos', iconKey: 'checkbox-outline', safe: false});
-      await repository.create('Gedanken', {id: 'Gedanken', header: 'Gedanken', iconKey: 'planet', safe: true});
-      await repository.create('Serien', {id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: false});
-      await repository.create('Tagebuch', {id: 'Tagebuch', header: 'Tagebuch', iconKey: 'analytics', safe: true});
-    
+    if ((await repository.getAll()).length === 0) {
+      await repository.create('ToDo', { id: 'ToDo', header: 'ToDos', iconKey: 'checkbox-outline', safe: false });
+      await repository.create('Gedanken', { id: 'Gedanken', header: 'Gedanken', iconKey: 'planet', safe: true });
+      await repository.create('Serien', { id: 'Serien', header: 'Serien', iconKey: 'desktop', safe: false });
+      await repository.create('Tagebuch', { id: 'Tagebuch', header: 'Tagebuch', iconKey: 'analytics', safe: true });
+
     }
   }
 }
 
 @NgModule({
-  declarations: [AppComponent, NoteOverviewComponent,
-    NoteListItemComponent, NoteEditComponent,
-    SearchPipe, SynchronizationComponent, LoginComponent],
+  declarations: [
+    AppComponent, 
+    NoteOverviewComponent,
+    NoteListItemComponent, 
+    NoteEditComponent,
+    SearchPipe, 
+    SynchronizationComponent, 
+    LoginComponent
+  ],
   entryComponents: [NoteEditComponent],
   imports: [
     BrowserModule,
@@ -58,8 +66,9 @@ export function initStorage(db: DatabaseService) {
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: APP_INITIALIZER, useFactory: initStorage, deps: [DatabaseService], multi: true}
+    { provide: APP_INITIALIZER, useFactory: initStorage, deps: [DatabaseService], multi: true },
+    { provide: CHANGE_TRIGGER, useValue: new ChangeRecorderService(), deps: [], multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { DatabaseService } from '../core/storage/database.service';
 import { NoteData } from './note-data';
 import * as moment from 'moment';
 import {Guid} from 'guid-typescript';
-import { DomainService } from '../core/domain/domain.service';
+import { DomainService, CHANGE_TRIGGER } from '../core/domain/domain.service';
+import { ChangeTrigger } from '../core/domain/changeTrigger';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService extends DomainService<NoteData> {
-  constructor(database: DatabaseService) { 
-    const store = database.getStore('note');
-    super(() => new NoteData(), store);
+  constructor(database: DatabaseService, @Inject(CHANGE_TRIGGER) trigger: ChangeTrigger) { 
+    super(() => new NoteData(), database.getStore('note'), 'NoteData', trigger);
   }
 
   public async getAllBySpaceId(spaceId: string): Promise<NoteData[]> {
