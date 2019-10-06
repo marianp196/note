@@ -7,4 +7,5 @@ export interface Service<T extends Domain> {
     delete(domain: T): Promise<boolean>;
     getAll(): Promise<T[]>;
     get(id: string): Promise<T>;
+    exists(id: string): Promise<boolean>;
 }

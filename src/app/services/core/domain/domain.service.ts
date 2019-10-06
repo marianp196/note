@@ -32,6 +32,10 @@ export class DomainService<T extends Domain> implements Service<T>{
     await this.triggerChange(ChangeType.Delete, domain.id);
     return true;
   }
+
+  public async exists(id: string): Promise<boolean> {
+    return this.repository.exists(id);
+  }
   
   public async getAll(): Promise<T[]> {
     const mementos = await this.repository.getAll();

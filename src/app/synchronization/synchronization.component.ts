@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { LoginService } from '../services/login/login.service';
-import { NoteService } from '../services/note/note.service';
-import { SpaceService } from '../services/space/space.service';
-import { NoteData } from '../services/note/note-data';
-import { Space } from '../services/space/space';
+import { ImportExportService } from '../services/synchronization/import-export.service';
 
 @Component({
   selector: 'app-synchronization',
@@ -13,7 +10,7 @@ import { Space } from '../services/space/space';
 })
 export class SynchronizationComponent implements OnInit {
 
-  constructor(private login: LoginService, private noteService: NoteService, private spaceService: SpaceService) { }
+  constructor(private login: LoginService,private  importExport: ImportExportService) { }
 
   public progress: ReplaySubject<number>;
   public uri = 'http://localhost:8080';
@@ -37,11 +34,17 @@ export class SynchronizationComponent implements OnInit {
       return;
     }
 
-    const notes = (await this.noteService.getAll()).map(n => n.getMemento());
-    const spaces = (await this.spaceService.getAll()).map(s => s.getMemento());
+    try {
+      this.exportArea = await this.importExport.exportAsJson()
+    } catch(error) {
+      if (error instanceof Error) {
+        this.exportArea = error.message;
+      } else {
+        this.exportArea = JSON.stringify(error);
+      }
 
-    const dataJSON = JSON.stringify({notes, spaces}); // ToDo  hierfür Typ einführen
-    this.exportArea = dataJSON;
+      throw error;
+    }
   }
 
   public async importAsJson() {
@@ -50,38 +53,18 @@ export class SynchronizationComponent implements OnInit {
       return;
     }
 
-    const data = JSON.parse(this.importArea); // ToDo  hierfür Typ einführen
-
-    if(!data || !data.notes || !data.spaces) {
-      this.importArea = 'input not valid';
-    }
-
-    const notesDomain = data.notes.map(n => {
-      const newNote = new NoteData();
-      newNote.setMemento(n);
-      return newNote;
-    });
-
-    const spacesDomain = data.spaces.map(s => {
-      const newSpace = new Space();
-      newSpace.setMemento(s);
-      return newSpace;
-    });
-
-    for (const note of notesDomain) {
-      if (await this.noteService.get(note.id)) {
-        await this.noteService.update(note);
+    try {
+      await this.importExport.importAsJson(this.importArea)
+    } catch(error) {
+      if (error instanceof Error) {
+        this.importArea = error.message;
       } else {
-        await this.noteService.create(note);
+        this.importArea = JSON.stringify(error);
       }
+
+      throw error;
     }
 
-    for (const space of spacesDomain) {
-      if (await this.noteService.get(space.id)) {
-        await this.spaceService.update(space);
-      } else {
-        await this.spaceService.create(space);
-      }
-    }
+    this.importArea = 'ERFOLGREICH :)';
   }
 }

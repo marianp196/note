@@ -40,12 +40,12 @@
         <ion-card-title>Import</ion-card-title>
       </ion-card-header>
       <ion-card-title>
-        <ion-textarea [(ngModel)]="importArea" rows="5" placeholder="Insert data here"></ion-textarea>
+        <ion-textarea [(ngModel)]="importArea" rows="2" placeholder="Insert data here"></ion-textarea>
         <ion-item lines="none">
           <ion-label color="primary">Password:</ion-label>
           <ion-input placeholder="Password" [(ngModel)]="passwordImport" type="password"></ion-input>
           <ion-button (click)="importAsJson()" class="export-btn" fill="clear" slot="end">
-            <ion-icon name="cloud-upload"></ion-icon>
+            <ion-icon name="cloud-upload" size="large"></ion-icon>
           </ion-button>
         </ion-item>
       </ion-card-title>
@@ -60,7 +60,7 @@
         <ion-label color="primary">Password:</ion-label>
         <ion-input placeholder="Password" [(ngModel)]="password" type="password"></ion-input>
         <ion-button (click)="exportAsJson()" class="export-btn" fill="clear" slot="end">
-          <ion-icon name="cloud-download"></ion-icon>
+          <ion-icon name="cloud-download" size="large"></ion-icon>
         </ion-button>
       </ion-item>
       <ng-container *ngIf="exportArea && exportArea !== ''">
