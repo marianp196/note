@@ -26,6 +26,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     pathMatch: 'full'
+  },
+  {
+    path: 'sync',
+    component: SynchronizationComponent,
+    pathMatch: 'full'
   }
 ];
 
