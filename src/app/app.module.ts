@@ -24,11 +24,12 @@ export function initStorage(db: DatabaseService) {
   return async (): Promise<any> => {
     db.schema = {
       dbName: 'notes',
-      currentVersion: 4,
+      currentVersion: 5,
       tables: [
         { name: 'note' },
         { name: 'space' },
-        { name: 'synchro'}
+        { name: 'synchro'},
+        { name: 'tags'}
       ]
     }
     await db.openDatabaseAndUpdate();

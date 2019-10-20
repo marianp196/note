@@ -9,7 +9,7 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Synchronization</ion-card-title>
+      <ion-card-title>Server</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-progress-bar [value]="progress | async"></ion-progress-bar>
@@ -65,7 +65,7 @@
       </ion-item>
       <ng-container *ngIf="exportArea && exportArea !== ''">
         <br>
-        <ion-textarea [(ngModel)]="exportArea" rows="5" disabled="true"></ion-textarea>
+        <ion-textarea [(ngModel)]="exportArea" rows="5" disabled="false"></ion-textarea>
       </ng-container>
     </ion-card-title>
   </ion-card>
