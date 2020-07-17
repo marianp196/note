@@ -30,7 +30,7 @@
     "cordova-sqlite-storage": "^3.2.1",
     "core-js": "^2.5.4",
     "guid-typescript": "^1.0.9",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.5.1",
